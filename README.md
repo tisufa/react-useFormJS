@@ -7,17 +7,11 @@ Create a simple form using custom `useForm` and `useControl`.
 - **Live Code:** [StackBlitz](https://stackblitz.com/~/github.com/tisufa/react-useFormJS)
 - **Demo:** [React UseFormJS](https://reactuseformjs-34go--5173--d20a0a75.local-credentialless.webcontainer.io/)
 
-## Installation
-
-Ensure you have this custom useForm in your project:
-
 ## Usage
 
 ### Using `useForm`
 
 ```jsx
-import { useForm, Validators } from "react-useFormJS";
-
 const form = useForm({
   name: [null, Validators.required("Name is required")],
 });
@@ -26,8 +20,6 @@ const form = useForm({
 ### Using `useControl`
 
 ```jsx
-import { useControl, Validators } from "react-useFormJS";
-
 const control = useControl("name", [
   null,
   Validators.required("Name is required"),
@@ -86,7 +78,3 @@ form.validate();
 ```jsx
 form.reset();
 ```
-
-## License
-
-This project is licensed under the MIT License.
