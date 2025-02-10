@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import { Form } from "./components";
 import { Button } from "./components/Button";
-import { useControl, useForm } from "./hooks";
+import { useForm } from "./hooks";
 import { GenderModel, ReligionModel, SkillModel } from "./models";
 import { Validators } from "./validators";
 function App() {
@@ -55,11 +55,6 @@ function App() {
     DTOB: [null, Validators.required("Date time of birth is required")],
     about: [null, Validators.required("About is required")],
   });
-
-  const control = useControl("name", [
-    null,
-    Validators.required("Name is required"),
-  ]);
 
   const handleSubmit = () => {
     form.validate();
