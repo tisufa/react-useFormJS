@@ -9,13 +9,7 @@ Create a simple form using custom `useForm` and `useControl`.
 
 ## Installation
 
-Ensure you have `react-useFormJS` installed in your project:
-
-```sh
-npm install react-useFormJS
-# or
-yarn add react-useFormJS
-```
+Ensure you have this custom useForm in your project:
 
 ## Usage
 
