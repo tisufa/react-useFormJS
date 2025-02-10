@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import { Form } from "./components";
 import { Button } from "./components/Button";
-import { useForm } from "./hooks";
+import { useControl, useForm } from "./hooks";
 import { GenderModel, ReligionModel, SkillModel } from "./models";
 import { Validators } from "./validators";
 function App() {
@@ -56,6 +56,11 @@ function App() {
     about: [null, Validators.required("About is required")],
   });
 
+  const control = useControl("name", [
+    null,
+    Validators.required("Name is required"),
+  ]);
+
   const handleSubmit = () => {
     form.validate();
     if (!form.isValid) return;
@@ -74,6 +79,10 @@ function App() {
       </div>
       <div className="content-wrapper">
         <div className="grid gap-2">
+          <Form.Group label="Username">
+            <Form.Input.Text {...control.props} placeholder="Enter username" />
+          </Form.Group>
+
           <Form.Group label="Username">
             <Form.Input.AlphaNumeric
               {...form.get("username").props}
