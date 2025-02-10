@@ -1,8 +1,70 @@
-# React + Vite
+# Custom React useForm hooks
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Create simple form using custom useForm and useControl.
 
-Currently, two official plugins are available:
+### Using useForm
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```
+const form = useForm({
+    name: [null, Validators.required('Name is required')]
+});
+```
+
+### Using useControl
+
+```
+const control = useControl("name", [
+  null,
+  Validators.required("Name is required"),
+]);
+```
+
+#### Native Input
+
+Using useForm with native input
+
+```
+ <input
+  className={
+    "form-control " +
+    (form.get("name").touched
+      ? form.get("name").isValid
+        ? "is-valid"
+        : "is-invalid"
+      : "")
+  }
+  {...form.get("name").nativeProps}
+  placeholder="Enter name"
+/>
+{form.get("name").touched && !form.get("name").isValid && (
+  <small className="text-danger">
+    {form.get("name").errors.message}
+  </small>
+)}
+```
+
+#### Custom Components
+
+Using useForm with custom components
+
+```
+<Form.Input.Text {...form.get("name").props} placeholder="Enter name" />
+```
+
+**Or**
+
+```
+<Form.Input.Text {...control.props} placeholder="Enter username" />
+```
+
+##### Validate
+
+```
+form.validate();
+```
+
+##### Reset
+
+```
+form.reset();
+```

@@ -80,10 +80,6 @@ function App() {
       <div className="content-wrapper">
         <div className="grid gap-2">
           <Form.Group label="Username">
-            <Form.Input.Text {...control.props} placeholder="Enter username" />
-          </Form.Group>
-
-          <Form.Group label="Username">
             <Form.Input.AlphaNumeric
               {...form.get("username").props}
               placeholder="Enter username"
