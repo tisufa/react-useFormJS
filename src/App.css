@@ -1,0 +1,39 @@
+body {
+  background-color: #fafafa;
+}
+
+div.header-wrapper {
+  text-align: center;
+  margin: 0.75rem 0;
+}
+
+div.content-wrapper {
+  max-width: 568px;
+  width: 100%;
+  background-color: #ffffff;
+  min-height: 50vh;
+  margin: 0.75rem auto;
+  padding: 0.75rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+}
+
+.flex {
+  display: flex;
+}
+
+.gap-2 {
+  gap: 0.5rem;
+}
+
+.gap-3 {
+  gap: 0.75rem;
+}
+
+.justify-end {
+  justify-content: end;
+}
+
+.mt-3 {
+  margin-top: 0.75rem;
+}
