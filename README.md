@@ -83,6 +83,142 @@ form.reset();
 
 `useForm` provides several configuration options to control form behavior.
 
+### Methods
+
+#### `patchValue(value: object): void`
+
+Updates multiple control values at once.
+
+```javascript
+form.patchValue({ username: "JohnDoe", email: "john@example.com" });
+```
+
+#### `get(controlName: string): FormControl | FormArray`
+
+Retrieves a specific control by its name.
+
+```javascript
+const emailControl = form.get("email");
+```
+
+#### `setControls(controls: object): void`
+
+Replaces the current controls with new ones.
+
+#### `setParent(parent: any): void`
+
+Sets the parent of the `FormGroup`.
+
+#### `addControl(controlName: string, props: any): void`
+
+Adds a new control to the form.
+
+```javascript
+form.addControl("phone", { value: "123456789" });
+```
+
+#### `removeControl(controlName: string): void`
+
+Removes a control from the form.
+
+```javascript
+form.removeControl("phone");
+```
+
+#### `validate(): void`
+
+Triggers validation on all form controls.
+
+```javascript
+form.validate();
+```
+
+#### `getFormData(): FormData`
+
+Converts form values to a `FormData` object.
+
+```javascript
+const formData = form.getFormData();
+```
+
+#### `markAllAsTouched(): void`
+
+Marks all controls as touched.
+
+#### `reset(): void`
+
+Resets all form controls to their initial state.
+
+```javascript
+form.reset();
+```
+
+#### `setValidators(validators: Function[]): void`
+
+Sets validators for all controls.
+
+#### `clearValidators(): void`
+
+Clears all validators from the controls.
+
+#### `disable(): void`
+
+Disables all controls in the form.
+
+```javascript
+form.disable();
+```
+
+#### `enable(): void`
+
+Enables all controls in the form.
+
+```javascript
+form.enable();
+```
+
+#### `setReadOnly(readOnly: boolean = true): void`
+
+Sets all controls to read-only mode.
+
+```javascript
+form.setReadOnly(true);
+```
+
+#### `reloadState(): void`
+
+Triggers a state reload in the parent form.
+
+### Properties
+
+#### `errors: any`
+
+Retrieves the first validation error in the form.
+
+```javascript
+if (form.errors) {
+  console.log("Form has errors");
+}
+```
+
+#### `isValid: boolean`
+
+Indicates whether the form is valid.
+
+```javascript
+if (form.isValid) {
+  console.log("Form is valid");
+}
+```
+
+#### `value: object`
+
+Gets the current values of the form controls.
+
+```javascript
+console.log(form.value);
+```
+
 ## Properties
 
 | Name       | Type      | Description                                                                                               |
