@@ -15,12 +15,18 @@ function App() {
   const form = useForm({
     username: [
       null,
-      Validators.required("Username is required"),
-      Validators.minLength(4, "Username must be greater than 3 characters"),
-      Validators.maxLength(16, "Username must be less than 17 characters"),
+      [
+        Validators.required("Username is required"),
+        Validators.minLength(4, "Username must be greater than 3 characters"),
+        Validators.maxLength(16, "Username must be less than 17 characters"),
+      ],
     ],
     name: [null, Validators.required("Name is required")],
-    age: [null, Validators.required("Age is required")],
+    age: [
+      null,
+      Validators.required("Age is required"),
+      { reRenderParent: true },
+    ],
     IDNumber: [
       null,
       [
@@ -54,12 +60,13 @@ function App() {
     TOB: [null, Validators.required("Time of birth is required")],
     DTOB: [null, Validators.required("Date time of birth is required")],
     about: [null, Validators.required("About is required")],
+    agreement: [false, [], { reRenderParent: true }],
   });
 
   const handleSubmit = () => {
     form.validate();
-    if (!form.isValid) return;
     console.log(form.value);
+    if (!form.isValid) return;
   };
 
   const handleReset = () => {
@@ -180,12 +187,22 @@ function App() {
               placeholder="Enter about"
             />
           </Form.Group>
+
+          <Form.CheckBox
+            {...form.get("agreement").props}
+            placeholder="Term and condition"
+          />
         </div>
         <div className="flex justify-end mt-3 gap-2">
           <Button variant="SECONDARY" onClick={handleReset}>
             Reset
           </Button>
-          <Button onClick={handleSubmit}>Submit</Button>
+          <Button
+            onClick={handleSubmit}
+            disabled={!form.get("agreement").value}
+          >
+            Submit
+          </Button>
         </div>
       </div>
     </div>

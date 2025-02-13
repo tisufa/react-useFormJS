@@ -1,10 +1,12 @@
 import { createRef } from "react";
 
 export class FormControl {
-  constructor(_props, name, parent) {
+  constructor(_props, name, state) {
+    const { parent, ...currentState } = state;
     this._props = _props;
     this.name = name;
-    this.parent = parent;
+    this.parent = state.parent;
+    this.state = currentState;
     this.value = _props[0];
     this.errors = this.createErrors(_props[0]);
     this.isValid = !this.errors;
@@ -210,7 +212,11 @@ export class FormControl {
   }
 
   reloadState() {
-    if (!this.parent?.reloadState) return;
-    this.parent.reloadState();
+    if (this.options?.reRenderParent) {
+      if (!this.parent) return;
+      this.parent.reloadState();
+    } else {
+      this.state.reloadState();
+    }
   }
 }

@@ -3,7 +3,7 @@ import { useControl } from "../../hooks";
 import { valueResolver } from "../../utils";
 
 const SelectComponent = (props, ref) => {
-  const control = useControl(props.name, props.props);
+  const control = useControl(props.name, props.props, props.parent);
   useImperativeHandle(ref, () => control);
 
   return (

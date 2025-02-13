@@ -4,7 +4,7 @@ import { InputText } from "./Text";
 
 const InputPasswordComponent = ({ placeholder, ...props }, ref) => {
   const [isShowPassword, setIsShowPassword] = useState(false);
-  const control = useControl(props.name, props.props);
+  const control = useControl(props.name, props.props, props.parent);
   useImperativeHandle(ref, () => control);
 
   const onChange = (value) => {

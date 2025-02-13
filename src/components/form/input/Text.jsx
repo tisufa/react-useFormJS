@@ -10,7 +10,7 @@ const InputTextComponent = (props, ref) => {
 };
 
 const InputWithPropsComponent = (props, ref) => {
-  let control = useControl(props.name, props.props);
+  let control = useControl(props.name, props.props, props.parent);
 
   useImperativeHandle(ref, () => control);
 

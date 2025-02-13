@@ -3,7 +3,7 @@ import { useControl } from "../../../hooks/form";
 import { InputText } from "./Text";
 
 const CustomInputComponent = (props, ref) => {
-  const control = useControl(props.name, props.props);
+  const control = useControl(props.name, props.props, props.parent);
   useImperativeHandle(ref, () => control);
   return <InputText {...props} {...control.props} />;
 };

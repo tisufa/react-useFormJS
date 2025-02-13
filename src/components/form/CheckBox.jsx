@@ -7,7 +7,7 @@ import React, {
 import { useControl } from "../../hooks/form";
 
 const CheckBoxComponent = (props, ref) => {
-  const control = useControl(props.name, props.props);
+  const control = useControl(props.name, props.props, props.parent);
   const inputRefs = useRef([]);
   useImperativeHandle(ref, () => control);
 

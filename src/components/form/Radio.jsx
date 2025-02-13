@@ -8,7 +8,7 @@ import { useControl } from "../../hooks";
 
 const RadioComponent = (props, ref) => {
   const inputRefs = useRef([]);
-  const control = useControl(props.name, props.props);
+  const control = useControl(props.name, props.props, props.parent);
   useImperativeHandle(ref, () => control);
 
   const [state] = useState({

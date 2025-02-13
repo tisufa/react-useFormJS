@@ -18,6 +18,10 @@ div.content-wrapper {
   border-radius: 0.5rem;
 }
 
+.grid {
+  display: grid;
+}
+
 .flex {
   display: flex;
 }
@@ -36,4 +40,8 @@ div.content-wrapper {
 
 .mt-3 {
   margin-top: 0.75rem;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }

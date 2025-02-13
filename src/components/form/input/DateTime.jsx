@@ -3,7 +3,7 @@ import { useControl } from "../../../hooks/form";
 import { InputText } from "./Text";
 
 const InputDateTimeComponent = ({ placeholder, ...props }, ref) => {
-  const control = useControl(props.name, props.props);
+  const control = useControl(props.name, props.props, props.parent);
   useImperativeHandle(ref, () => control);
 
   return (

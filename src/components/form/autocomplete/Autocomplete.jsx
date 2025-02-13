@@ -9,7 +9,7 @@ import { useControl } from "../../../hooks";
 import "./Autocomplete.css";
 
 const AutocompleteComponent = (props, ref) => {
-  const control = useControl(props.name, props.props);
+  const control = useControl(props.name, props.props, props.parent);
   useImperativeHandle(ref, () => control);
 
   const [state, setState] = useState({
