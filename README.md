@@ -229,7 +229,7 @@ console.log(form.value);
 
 ```jsx
 const form = useForm({
-  username: [null],
+  username: [null, [], { readonly: true }],
 });
 ```
 
