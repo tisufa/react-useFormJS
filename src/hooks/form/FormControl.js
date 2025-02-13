@@ -92,7 +92,7 @@ export class FormControl {
       name: this.name,
       props: this._props,
       ref: this.ref,
-      parent: this.parent?.parent,
+      parent: this.parent?.parent || { reloadState: () => this.reloadState() },
     };
   }
 
@@ -213,8 +213,12 @@ export class FormControl {
 
   reloadState() {
     if (this.options?.reRenderParent) {
-      if (!this.parent) return;
-      this.parent.reloadState();
+      if (this.parent) {
+        if (!this.parent) return;
+        this.parent.reloadState();
+      } else {
+        this.state.reloadState();
+      }
     } else {
       this.state.reloadState();
     }
