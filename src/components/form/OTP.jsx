@@ -7,7 +7,7 @@ import {
 } from "react";
 import { useControl } from "../../hooks";
 
-const OTPComponent = ({ otpLength = 5, ...props }, ref) => {
+const OTPComponent = ({ otpLength = 5, type = "number", ...props }, ref) => {
   const control = useControl(props.name, props.props, props.parent);
   const [otps, setOtps] = useState(Array(otpLength).fill(""));
   const [focus, setFocus] = useState(false);
@@ -33,8 +33,10 @@ const OTPComponent = ({ otpLength = 5, ...props }, ref) => {
     const { value } = e.target;
     if (!value) return;
     const newOTPs = [...otps];
-    newOTPs[index] = value;
+    const isValidNumber = type === "number" ? !isNaN(value) : true;
+    newOTPs[index] = isValidNumber ? value : "";
     setOtps(newOTPs);
+    if (!isValidNumber) return;
     const inputRef = inputRefs.current[index + 1];
     if (inputRef) inputRef.focus();
   };
