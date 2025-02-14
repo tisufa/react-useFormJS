@@ -196,7 +196,7 @@ function App() {
           </Form.Group>
 
           <Form.Group label="OTP">
-            <Form.OTP {...form.get("OTP").props} />
+            <Form.OTP {...form.get("OTP").props} type="number" />
           </Form.Group>
 
           <Form.CheckBox

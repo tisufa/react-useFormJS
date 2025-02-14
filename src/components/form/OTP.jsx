@@ -17,6 +17,12 @@ const OTPComponent = ({ otpLength = 5, type = "number", ...props }, ref) => {
   const inputRefs = useRef([]);
 
   useEffect(() => {
+    if (!(type === "number" || type === "text")) {
+      throw new Error("Invalid otp type");
+    }
+  }, []);
+
+  useEffect(() => {
     const values = otps.filter((otp) => otp).join("");
     control.setValue(values);
   }, [otps]);
