@@ -2,6 +2,7 @@ import { Autocomplete } from "./autocomplete/Autocomplete";
 import { CheckBox } from "./CheckBox";
 import Group from "./Group";
 import { Input } from "./input";
+import { OTP } from "./OTP";
 import { Radio } from "./Radio";
 import { Select } from "./Select";
 import { TextArea } from "./TextArea";
@@ -15,4 +16,5 @@ export const Form = {
   CheckBox,
   Autocomplete,
   Upload,
+  OTP,
 };

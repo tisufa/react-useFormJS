@@ -13,8 +13,15 @@ function App() {
   });
 
   const form = useForm({
-    username: [
+    OTP: [
       null,
+      [
+        Validators.required("OTP is required"),
+        Validators.actualLength(5, "OTP must be 5 characters long"),
+      ],
+    ],
+    username: [
+      "",
       [
         Validators.required("Username is required"),
         Validators.minLength(4, "Username must be greater than 3 characters"),
@@ -186,6 +193,10 @@ function App() {
               {...form.get("about").props}
               placeholder="Enter about"
             />
+          </Form.Group>
+
+          <Form.Group label="OTP">
+            <Form.OTP {...form.get("OTP").props} />
           </Form.Group>
 
           <Form.CheckBox
