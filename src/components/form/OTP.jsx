@@ -32,6 +32,7 @@ const OTPComponent = ({ otpLength = 5, type = "number", ...props }, ref) => {
     if (control.touched) return;
     if (touched && !control.touched) {
       control.markAsTouched();
+      control.reloadState();
     }
   }, [focus]);
 
