@@ -96,7 +96,7 @@ export class FormControl {
       : [this._props[1]];
     return (
       validators
-        .map((validator) => validator(value, this.parent?.parent))
+        .map((validator) => validator(value, this.parent))
         .filter((error) => error)[0] || null
     );
   }
