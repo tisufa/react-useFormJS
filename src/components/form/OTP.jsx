@@ -5,10 +5,13 @@ import {
   useRef,
   useState,
 } from "react";
-import { useControl } from "../../hooks";
+import { useControlRef } from "../../hooks";
 
-const OTPComponent = ({ otpLength = 5, type = "number", ...props }, ref) => {
-  const control = useControl(props.name, props.props, props.parent);
+const OTPComponent = (
+  { otpLength = 5, type = "number", control, ...props },
+  ref
+) => {
+  const { setValue, markAsTouched } = useControlRef(control);
   const [otps, setOtps] = useState(Array(otpLength).fill(""));
   const [focus, setFocus] = useState(false);
   const [touched, setTouched] = useState(false);
@@ -24,15 +27,14 @@ const OTPComponent = ({ otpLength = 5, type = "number", ...props }, ref) => {
 
   useEffect(() => {
     const values = otps.filter((otp) => otp).join("");
-    control.setValue(values);
+    setValue(values);
   }, [otps]);
 
   useEffect(() => {
     if (focus) return;
     if (control.touched) return;
     if (touched && !control.touched) {
-      control.markAsTouched();
-      control.reloadState();
+      markAsTouched();
     }
   }, [focus]);
 

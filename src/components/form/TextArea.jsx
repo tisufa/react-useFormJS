@@ -1,20 +1,8 @@
-import React, { forwardRef, useImperativeHandle } from "react";
-import { useControl } from "../../hooks";
+import React, { forwardRef } from "react";
+import { useControlRef } from "../../hooks";
 
-const TextAreaComponent = (props, ref) => {
-  const control = useControl(props.name, props.props, props.parent);
-  useImperativeHandle(ref, () => control);
-
-  const onChange = (event) => {
-    if (props.onChange) {
-      const value = event.target.value;
-      control.setValue(value);
-      if (!props.onChange) return;
-      props.onChange(value);
-    } else if (control) {
-      control.nativeProps.onChange(event);
-    }
-  };
+const TextAreaComponent = ({ control, ...props }, ref) => {
+  const { nativeProps } = useControlRef(control);
 
   return (
     <>
@@ -31,9 +19,8 @@ const TextAreaComponent = (props, ref) => {
                   : "is-invalid"
                 : "")
             }
+            {...nativeProps}
             placeholder={props.placeholder}
-            {...control.nativeProps}
-            onChange={onChange}
             value={control.value || ""}
           />
           {control.touched && control.errors ? (

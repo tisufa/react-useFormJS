@@ -4,11 +4,11 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { useControl } from "../../hooks";
+import { useControlRef } from "../../hooks";
 
-const RadioComponent = (props, ref) => {
+const RadioComponent = ({ control, ...props }, ref) => {
   const inputRefs = useRef([]);
-  const control = useControl(props.name, props.props, props.parent);
+  const { setValue } = useControlRef(control);
   useImperativeHandle(ref, () => control);
 
   const [state] = useState({
@@ -41,7 +41,7 @@ const RadioComponent = (props, ref) => {
                 value={option.id}
                 checked={option.id === +control.value?.id}
                 onChange={() => {
-                  control.setValue(option);
+                  setValue(option);
                   if (!props.onChange) return;
                   props.onChange(option);
                 }}

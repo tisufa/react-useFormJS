@@ -1,9 +1,9 @@
 import React, { forwardRef, useImperativeHandle } from "react";
-import { useControl } from "../../hooks";
+import { useControlRef } from "../../hooks";
 import { valueResolver } from "../../utils";
 
-const SelectComponent = (props, ref) => {
-  const control = useControl(props.name, props.props, props.parent);
+const SelectComponent = ({ control, ...props }, ref) => {
+  const { setValue, nativeProps } = useControlRef(control);
   useImperativeHandle(ref, () => control);
 
   return (
@@ -21,7 +21,7 @@ const SelectComponent = (props, ref) => {
                   : "is-invalid"
                 : "")
             }
-            {...control.nativeProps}
+            {...nativeProps}
             onChange={(e) => {
               let value = e.target.value;
               if (value) {
@@ -30,7 +30,7 @@ const SelectComponent = (props, ref) => {
                 );
                 value = (props.options || [])[indexOfOption];
               }
-              control.setValue(value);
+              setValue(value);
               props.onChange && props.onChange(value);
             }}
             value={control.value?.id}

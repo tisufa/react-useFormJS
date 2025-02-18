@@ -1,22 +1,23 @@
 import React, { forwardRef, useImperativeHandle, useState } from "react";
-import { useControl } from "../../../hooks/form";
+import { useControlRef } from "../../../hooks";
 import { InputText } from "./Text";
 
-const InputPasswordComponent = ({ placeholder, ...props }, ref) => {
+const InputPasswordComponent = ({ control, ...props }, ref) => {
   const [isShowPassword, setIsShowPassword] = useState(false);
-  const control = useControl(props.name, props.props, props.parent);
+  const { setValue } = useControlRef(control);
   useImperativeHandle(ref, () => control);
 
-  const onChange = (value) => {
-    control.setValue(value.toLowerCase());
+  const handleChange = (event) => {
+    const value = event.target.value;
+    setValue(value);
   };
 
   return (
     <InputText
-      placeholder={placeholder}
+      {...props}
       control={control}
       type={isShowPassword ? "text" : "password"}
-      onChange={onChange}
+      onChange={handleChange}
       componentRight={() => (
         <em
           className={

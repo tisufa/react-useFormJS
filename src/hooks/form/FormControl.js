@@ -55,7 +55,6 @@ export class FormControl {
     this.value = value;
     this.errors = this.createErrors(value);
     this.isValid = !this.errors;
-    this.reloadState();
   }
 
   markAsTouched() {
@@ -72,28 +71,6 @@ export class FormControl {
     } else {
       this.dirty = true;
     }
-  }
-
-  get props() {
-    if (this.parent && this.parent.parent && this.parent.parent.readonly) {
-      if (typeof this._props[2] === "undefined") {
-        this._props[2] = {
-          readonly: this.parent.parent.readonly,
-        };
-      } else if (
-        this._props[2] &&
-        typeof this._props[2].readonly === "undefined"
-      ) {
-        this._props[2].readonly = this.parent.parent.readonly;
-      }
-    }
-
-    return {
-      name: this.name,
-      props: this._props,
-      ref: this.ref,
-      parent: this.parent?.parent || { reloadState: () => this.reloadState() },
-    };
   }
 
   get nativeProps() {

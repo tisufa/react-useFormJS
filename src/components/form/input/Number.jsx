@@ -1,23 +1,17 @@
 import React, { forwardRef, useImperativeHandle } from "react";
-import { useControl } from "../../../hooks/form";
+import { useControlRef } from "../../../hooks";
 import { InputText } from "./Text";
 
-const InputNumberComponent = ({ placeholder, ...props }, ref) => {
-  const control = useControl(props.name, props.props, props.parent);
+const InputNumberComponent = ({ control, ...props }, ref) => {
+  const { setValue } = useControlRef(control);
   useImperativeHandle(ref, () => control);
 
-  const onChange = (value) => {
-    control.setValue(value.replace(/\D/g, ""));
+  const handleChange = (event) => {
+    const value = event.target.value;
+    setValue(value.replace(/\D/g, ""));
   };
 
-  return (
-    <InputText
-      placeholder={placeholder}
-      control={control}
-      type="number"
-      onChange={onChange}
-    />
-  );
+  return <InputText control={control} onChange={handleChange} {...props} />;
 };
 
 export const InputNumber = forwardRef(InputNumberComponent);

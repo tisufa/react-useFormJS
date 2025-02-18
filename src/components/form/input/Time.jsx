@@ -1,12 +1,8 @@
-import React, { forwardRef, useImperativeHandle } from "react";
-import { useControl } from "../../../hooks/form";
+import React, { forwardRef } from "react";
 import { InputText } from "./Text";
 
-const InputTimeComponent = ({ placeholder, ...props }, ref) => {
-  const control = useControl(props.name, props.props, props.parent);
-  useImperativeHandle(ref, () => control);
-
-  return <InputText placeholder={placeholder} {...control.props} type="time" />;
+const InputTimeComponent = ({ control, ...props }, ref) => {
+  return <InputText type="time" control={control} {...props} />;
 };
 
 export const InputTime = forwardRef(InputTimeComponent);

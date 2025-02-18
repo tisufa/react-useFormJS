@@ -1,21 +1,22 @@
 import React, { forwardRef, useImperativeHandle } from "react";
-import { useControl } from "../../../hooks/form";
+import { useControlRef } from "../../../hooks";
 import { InputText } from "./Text";
 
-const InputEmailComponent = ({ placeholder, ...props }, ref) => {
-  const control = useControl(props.name, props.props, props.parent);
+const InputEmailComponent = ({ control, ...props }, ref) => {
+  const { setValue } = useControlRef(control);
   useImperativeHandle(ref, () => control);
 
-  const onChange = (value) => {
-    control.setValue(value.toLowerCase());
+  const handleChange = (event) => {
+    const value = event.target.value;
+    setValue(value.toLowerCase());
   };
 
   return (
     <InputText
-      placeholder={placeholder}
-      control={control}
       type="email"
-      onChange={onChange}
+      control={control}
+      onChange={handleChange}
+      {...props}
       componentLeft={() => <em className="fas fa-envelope" />}
     />
   );

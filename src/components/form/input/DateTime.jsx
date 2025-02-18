@@ -1,18 +1,8 @@
-import React, { forwardRef, useImperativeHandle } from "react";
-import { useControl } from "../../../hooks/form";
+import React, { forwardRef } from "react";
 import { InputText } from "./Text";
 
-const InputDateTimeComponent = ({ placeholder, ...props }, ref) => {
-  const control = useControl(props.name, props.props, props.parent);
-  useImperativeHandle(ref, () => control);
-
-  return (
-    <InputText
-      placeholder={placeholder}
-      {...control.props}
-      type="datetime-local"
-    />
-  );
+const InputDateTimeComponent = ({ control, ...props }, ref) => {
+  return <InputText type="datetime-local" control={control} {...props} />;
 };
 
 export const InputDateTime = forwardRef(InputDateTimeComponent);

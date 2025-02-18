@@ -5,7 +5,6 @@ import { Button } from "./components/Button";
 import { useForm } from "./hooks";
 import { GenderModel, ReligionModel, SkillModel } from "./models";
 import { Validators } from "./validators";
-
 function App() {
   const [state] = useState({
     genders: GenderModel.createList(),
@@ -88,59 +87,59 @@ function App() {
         <p>Build a form in a ReactJS application with custom useForm hooks</p>
       </div>
       <div className="content-wrapper">
-        <div className="grid gap-3">
+        <div className="grid gap-2">
           <Form.Group label="Username">
             <Form.Input.AlphaNumeric
-              control={form.get("username")}
+              {...form.get("username").props}
               placeholder="Enter username"
             />
           </Form.Group>
 
           <Form.Group label="Name">
             <Form.Input.Text
-              control={form.get("name")}
+              {...form.get("name").props}
               placeholder="Enter name"
             />
           </Form.Group>
 
           <Form.Group label="Age">
             <Form.Input.Number
-              control={form.get("age")}
+              {...form.get("age").props}
               placeholder="Enter age"
             />
           </Form.Group>
 
           <Form.Group label="ID Number">
             <Form.Input.Numeric
-              control={form.get("IDNumber")}
+              {...form.get("IDNumber").props}
               placeholder="Enter ID number"
             />
           </Form.Group>
 
           <Form.Group label="Email">
             <Form.Input.Email
-              control={form.get("email")}
+              {...form.get("email").props}
               placeholder="Enter email address"
             />
           </Form.Group>
 
           <Form.Group label="Password">
             <Form.Input.Password
-              control={form.get("password")}
+              {...form.get("password").props}
               placeholder="Enter password"
             />
           </Form.Group>
 
           <Form.Group label="Confirm Password">
             <Form.Input.Password
-              control={form.get("confirmPassword")}
+              {...form.get("confirmPassword").props}
               placeholder="Enter confirm password"
             />
           </Form.Group>
 
           <Form.Group label="Gender">
             <Form.Radio
-              control={form.get("gender")}
+              {...form.get("gender").props}
               placeholder="Select gender"
               options={state.genders}
             />
@@ -148,7 +147,7 @@ function App() {
 
           <Form.Group label="Religion">
             <Form.Select
-              control={form.get("religion")}
+              {...form.get("religion").props}
               placeholder="Select religion"
               options={state.religions}
             />
@@ -156,58 +155,55 @@ function App() {
 
           <Form.Group label="Skills">
             <Form.CheckBox
-              control={form.get("skills")}
+              {...form.get("skills").props}
               options={state.skills}
             />
           </Form.Group>
 
           <Form.Group label="Salary">
             <Form.Input.Currency
-              control={form.get("salary")}
+              {...form.get("salary").props}
               placeholder="Enter salary"
             />
           </Form.Group>
 
           <Form.Group label="Date of Birth">
             <Form.Input.Date
-              control={form.get("DOB")}
+              {...form.get("DOB").props}
               placeholder="Select date of birth"
             />
           </Form.Group>
 
           <Form.Group label="Time of Birth">
             <Form.Input.Time
-              control={form.get("TOB")}
+              {...form.get("TOB").props}
               placeholder="Select time of birth"
             />
           </Form.Group>
 
           <Form.Group label="Date time of Birth">
             <Form.Input.DateTime
-              control={form.get("DTOB")}
+              {...form.get("DTOB").props}
               placeholder="Select date time of birth"
             />
           </Form.Group>
 
           <Form.Group label="About">
             <Form.TextArea
-              control={form.get("about")}
+              {...form.get("about").props}
               placeholder="Enter about"
             />
           </Form.Group>
 
           <Form.Group label="OTP">
-            <Form.OTP control={form.get("OTP")} type="number" />
+            <Form.OTP {...form.get("OTP").props} type="number" />
           </Form.Group>
 
-          <Form.Group>
-            <Form.CheckBox
-              control={form.get("agreement")}
-              placeholder="Term and condition"
-            />
-          </Form.Group>
+          <Form.CheckBox
+            {...form.get("agreement").props}
+            placeholder="Term and condition"
+          />
         </div>
-
         <div className="flex justify-end mt-3 gap-2">
           <Button variant="SECONDARY" onClick={handleReset}>
             Reset

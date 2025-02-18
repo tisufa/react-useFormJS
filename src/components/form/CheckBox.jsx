@@ -4,10 +4,10 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { useControl } from "../../hooks/form";
+import { useControlRef } from "../../hooks/form";
 
-const CheckBoxComponent = (props, ref) => {
-  const control = useControl(props.name, props.props, props.parent);
+const CheckBoxComponent = ({ control, ...props }, ref) => {
+  const { setValue, nativeProps, markAsTouched } = useControlRef(control);
   const inputRefs = useRef([]);
   useImperativeHandle(ref, () => control);
 
@@ -41,11 +41,11 @@ const CheckBoxComponent = (props, ref) => {
                 type="checkbox"
                 id={"checkbox" + state.randomId}
                 ref={(el) => (inputRefs.current[0] = el)}
-                {...control.nativeProps}
+                {...nativeProps}
                 checked={!!control.value}
                 onChange={(e) => {
-                  control.setValue(e.target.checked);
-                  control.markAsTouched();
+                  setValue(e.target.checked);
+                  markAsTouched();
                   if (props.onChange) {
                     props.onChange(control.value);
                   }
@@ -83,7 +83,7 @@ const CheckBoxComponent = (props, ref) => {
                   type="checkbox"
                   id={"checkbox" + state.randomId + option.id}
                   ref={(el) => (inputRefs.current[index] = el)} // Assign dynamic ref based on index
-                  {...control.nativeProps}
+                  {...nativeProps}
                   value={option.id}
                   checked={
                     (control.value || []).findIndex(
@@ -102,8 +102,8 @@ const CheckBoxComponent = (props, ref) => {
                         value.splice(indexOfOption, 1);
                       }
                     }
-                    control.setValue(value.length > 0 ? value : "");
-                    control.markAsTouched();
+                    setValue(value.length > 0 ? value : "");
+                    markAsTouched();
                     if (props.onChange) {
                       props.onChange(control.value);
                     }
