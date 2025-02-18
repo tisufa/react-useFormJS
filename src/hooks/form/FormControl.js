@@ -189,15 +189,6 @@ export class FormControl {
   }
 
   reloadState() {
-    if (this.options?.reRenderParent) {
-      if (this.parent) {
-        if (!this.parent) return;
-        this.parent.reloadState();
-      } else {
-        this.state.reloadState();
-      }
-    } else {
-      this.state.reloadState();
-    }
+    this.state.reloadState();
   }
 }
