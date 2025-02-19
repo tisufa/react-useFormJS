@@ -60,6 +60,7 @@ function App() {
         ),
       ],
     ],
+    phone: [null, Validators.required("Phone number is required")],
     gender: [null, Validators.required("Gender is required")],
     religion: [null, Validators.required("Religion is required")],
     skills: [null, Validators.required("Skills wajib dipilih")],
@@ -135,6 +136,13 @@ function App() {
             <Form.Input.Password
               control={form.get("confirmPassword")}
               placeholder="Enter confirm password"
+            />
+          </Form.Group>
+
+          <Form.Group label="Phone">
+            <Form.Input.Tel
+              control={form.get("phone")}
+              placeholder="Enter phone number"
             />
           </Form.Group>
 

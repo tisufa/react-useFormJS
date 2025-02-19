@@ -1,20 +1,21 @@
 import React, { forwardRef, useImperativeHandle } from "react";
-import { useControl } from "../../../hooks/form";
+import { useControlRef } from "../../../hooks/form";
 import { InputText } from "./Text";
 
-const InputTelComponent = ({ placeholder, ...props }, ref) => {
-  const control = useControl(props.name, props.props, props.parent);
+const InputTelComponent = ({ control, ...props }, ref) => {
+  const { setValue } = useControlRef(control);
   useImperativeHandle(ref, () => control);
 
-  const onChange = (value) => {
-    control.setValue(value.replace(/\D/g, ""));
+  const handleChange = (event) => {
+    const value = event.target.value;
+    setValue(+value.replace(/\D/g, ""));
   };
 
   return (
     <InputText
-      placeholder={placeholder}
       control={control}
-      onChange={onChange}
+      onChange={handleChange}
+      {...props}
       componentLeft={() => <>+62</>}
     />
   );

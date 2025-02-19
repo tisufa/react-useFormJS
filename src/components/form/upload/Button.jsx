@@ -1,9 +1,9 @@
 import { forwardRef, useImperativeHandle, useRef } from "react";
-import { useControl } from "../../../hooks";
+import { useControlRef } from "../../../hooks";
 import { Button } from "../../Button";
 
-const UploadButtonComponent = (props, ref) => {
-  const control = useControl(props.name, props.props);
+const UploadButtonComponent = ({ control, ...props }, ref) => {
+  const { setValue } = useControlRef(control);
   const inputRef = useRef(null);
   useImperativeHandle(ref, () => control);
 
@@ -20,9 +20,9 @@ const UploadButtonComponent = (props, ref) => {
       Array.from(files).forEach((file) => {
         values.push(file);
       });
-      control.setValue(values);
+      setValue(values);
     } else {
-      control.setValue(files.item(0));
+      setValue(files.item(0));
     }
 
     event.target.value = null;
@@ -39,9 +39,9 @@ const UploadButtonComponent = (props, ref) => {
     if (isMultiple) {
       const values = control.value;
       values.splice(index, 1);
-      control.setValue(values);
+      setValue(values);
     } else {
-      control.setValue(null);
+      setValue(null);
     }
     if (!props.onChange) return;
     props.onChange(control.value);
