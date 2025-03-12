@@ -23,6 +23,7 @@ export const formBuilder = {
       if (prop instanceof FormArray) {
         prop.setParent(parent);
         controls[key] = prop;
+      
       } else {
         if (formGroup.readonly) {
           if (typeof prop[2] === "undefined") {
@@ -37,8 +38,8 @@ export const formBuilder = {
     formGroup.setControls(controls);
     return formGroup;
   },
-  array: () => {
-    const formArray = new FormArray([]);
+  array: (controls) => {
+    const formArray = new FormArray(controls);
     return formArray;
   },
 };

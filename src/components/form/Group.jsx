@@ -1,11 +1,9 @@
-import React, { useRef } from "react";
+import React from "react";
 
 const Group = ({ children, label, htmlFor, className, required = true }) => {
-  const labelRef = useRef(null);
   return (
     <div className={"form-group" + (className ? " " + className : "")}>
       <label
-        ref={labelRef}
         className={(required ? "" : "optional") + " mb-1"}
         attr-optional={"(optional)"}
         htmlFor={htmlFor}

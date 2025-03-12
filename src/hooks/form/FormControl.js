@@ -1,5 +1,3 @@
-import { createRef } from "react";
-
 export class FormControl {
   constructor(_props, name, state) {
     const { parent, ...currentState } = state;
@@ -14,12 +12,11 @@ export class FormControl {
     this.dirty = false;
     this.disabled = !!_props[2]?.disabled;
     this.readonly = !!_props[2]?.readonly;
-    this.ref = createRef();
     this.options = _props[2];
   }
 
   get value() {
-    return this.ref.current ? this.ref.current.value : this._value;
+    return this._value;
   }
 
   set value(value) {
@@ -27,7 +24,7 @@ export class FormControl {
   }
 
   get errors() {
-    return this.ref?.current ? this.ref.current.errors : this._errors;
+    return this._errors;
   }
 
   set errors(errors) {
@@ -36,19 +33,16 @@ export class FormControl {
 
   patchValue(value) {
     this._props[0] = value;
-    if (this.ref.current) {
-      this.ref.current.patchValue(value);
+
+    if (this._props[2]?.toModel && value) {
+      this.value = this._props[2]?.toModel(value);
+      this.errors = this.createErrors(this.value);
     } else {
-      if (this._props[2]?.toModel && value) {
-        this.value = this._props[2]?.toModel(value);
-        this.errors = this.createErrors(this.value);
-      } else {
-        this.value = value;
-        this.errors = this.createErrors(value);
-      }
-      this.isValid = !this.errors;
-      this.reloadState();
+      this.value = value;
+      this.errors = this.createErrors(value);
     }
+    this.isValid = !this.errors;
+    this.reloadState();
   }
 
   setValue(value) {
@@ -58,19 +52,11 @@ export class FormControl {
   }
 
   markAsTouched() {
-    if (this.ref.current) {
-      this.ref.current.markAsTouched();
-    } else {
-      this.touched = true;
-    }
+    this.touched = true;
   }
 
   markAsDirty() {
-    if (this.ref.current) {
-      this.ref.current.markAsDirty();
-    } else {
-      this.dirty = true;
-    }
+    this.dirty = true;
   }
 
   get nativeProps() {
@@ -106,86 +92,54 @@ export class FormControl {
   }
 
   validate() {
-    if (this.ref.current) {
-      this.ref.current.validate();
-    } else {
-      if (this.errors && this.touched) return;
-      this.markAsTouched();
-      this.errors = this.createErrors(this.value);
-      this.isValid = !this.errors;
-      this.reloadState();
-    }
+    if (this.errors && this.touched) return;
+    this.markAsTouched();
+    this.errors = this.createErrors(this.value);
+    this.isValid = !this.errors;
+    this.reloadState();
   }
 
   reset() {
-    if (this.ref.current) {
-      this.ref.current.reset();
-    } else {
-      this.touched = false;
-      this.dirty = false;
-      this.patchValue("");
-    }
+    this.touched = false;
+    this.dirty = false;
+    this.patchValue("");
   }
 
   setValidators(validators) {
-    if (this.ref.current) {
-      this.ref.current.setValidators(validators);
-    } else {
-      this._props[1] = validators;
-      this.errors = this.createErrors(this.value);
-      this.isValid = !this.errors;
-      this.reloadState();
-    }
+    this._props[1] = validators;
+    this.errors = this.createErrors(this.value);
+    this.isValid = !this.errors;
+    this.reloadState();
   }
 
   clearValidators() {
-    if (this.ref.current) {
-      this.ref.current.clearValidators();
-    } else {
-      this._props[1] = [];
-      this.errors = null;
-      this.isValid = true;
-      this.reloadState();
-    }
+    this._props[1] = [];
+    this.errors = null;
+    this.isValid = true;
+    this.reloadState();
   }
 
   disable() {
-    if (this.ref.current) {
-      this.ref.current.disable();
-    } else {
-      this.disabled = true;
-      this.reloadState();
-    }
+    this.disabled = true;
+    this.reloadState();
   }
 
   enable() {
-    if (this.ref.current) {
-      this.ref.current.enable();
-    } else {
-      this.disabled = false;
-      this.reloadState();
-    }
+    this.disabled = false;
+    this.reloadState();
   }
 
   setReadOnly(readOnly = true, reloadState = false) {
     this.readonly = readOnly;
-    if (this.ref.current) {
-      this.ref.current.setReadOnly(readOnly);
-    }
-
-    if (reloadState || !this.ref.current) {
+    if (reloadState) {
       this.reloadState();
     }
   }
 
   setErrors(errors) {
-    if (this.ref.current) {
-      this.ref.current?.setErrors(errors);
-    } else {
-      this.errors = errors;
-      this.isValid = false;
-      this.reloadState();
-    }
+    this.errors = errors;
+    this.isValid = false;
+    this.reloadState();
   }
 
   reloadState() {
