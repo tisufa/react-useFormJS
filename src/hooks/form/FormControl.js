@@ -1,10 +1,9 @@
 export class FormControl {
   constructor(_props, name, state) {
-    const { parent, ...currentState } = state;
+    const { parent } = state;
     this._props = _props;
     this.name = name;
-    this.parent = state.parent;
-    this.state = currentState;
+    this.parent = parent;
     this.value = _props[0];
     this.errors = this.createErrors(_props[0]);
     this.isValid = !this.errors;
@@ -143,6 +142,6 @@ export class FormControl {
   }
 
   reloadState() {
-    this.state.reloadState();
+    this.parent.reloadState();
   }
 }

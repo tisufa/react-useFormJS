@@ -45,3 +45,14 @@ div.content-wrapper {
 .cursor-pointer {
   cursor: pointer;
 }
+
+.form-item {
+  display: grid;
+  grid-template-columns: 1fr max-content;
+  column-gap: 0.5rem;
+}
+
+.form-item em.fas.fa-times {
+  cursor: pointer;
+  color: red;
+}
